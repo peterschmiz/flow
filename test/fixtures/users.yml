@@ -1,0 +1,4 @@
+flowtest:
+  name: Flow Test
+  email: flow@flow.com
+  password_digest: <%= User.digest('password') %>
