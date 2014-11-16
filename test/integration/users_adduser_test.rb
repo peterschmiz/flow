@@ -2,6 +2,11 @@ require 'test_helper'
 
 class UsersAdduserTest < ActionDispatch::IntegrationTest
 
+	def setup
+		@user = users(:flowtest)
+		log_in_as(@user, remember_me: '0')
+	end
+
 	test 'invalid signup information' do
 		get adduser_path
 		assert_no_difference 'User.count' do

@@ -2,3 +2,8 @@ flowtest:
   name: Flow Test
   email: flow@flow.com
   password_digest: <%= User.digest('password') %>
+
+flowtest2:
+  name: Flow Test 2
+  email: flow2@flow.com
+  password_digest: <%= User.digest('password') %>

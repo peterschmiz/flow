@@ -1,0 +1,20 @@
+- content_for(:title, 'User list')
+.row
+	.col-md-6.col-md-offset-3
+		= will_paginate
+		%table.table
+			%thead
+				%tr
+					%th ID
+					%th Name
+					%th Email
+			%tbody
+				- @users.each do |user|
+					%tr
+						%td #{user.id}
+						%td
+							= link_to user.name, user
+						%td
+							%a{ :href => "mailto:#{user.email}" }
+								#{user.email}
+		= will_paginate
