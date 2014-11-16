@@ -9,12 +9,10 @@
 		= javascript_include_tag 'application'
 		= csrf_meta_tags
 	%body
-		- flash.each do |message_type, message|
-			.alert{:class => "alert-#{message_type}"}
-				= message
-		- if logged_in?
-			Logged in!
-		- else
-			Not logged in!
-		= yield
-		= debug(params) if Rails.env.development?
+		= render :partial => 'layouts/header'
+		.page-wrapper.container
+			- flash.each do |message_type, message|
+				.alert{:class => "alert-#{message_type}"}
+					= message
+			= yield
+			= debug(params) if Rails.env.development?
