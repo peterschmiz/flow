@@ -12,4 +12,10 @@
 					= f.password_field :password, :class => 'form-control'
 			.form-group
 				.col-sm-offset-2.col-sm-10
+					.checkbox
+						%label
+							= f.check_box :remember_me
+							Remember me
+			.form-group
+				.col-sm-offset-2.col-sm-10
 					= f.submit 'Log in', :class => 'btn btn-default'
