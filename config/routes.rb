@@ -2,10 +2,13 @@ Rails.application.routes.draw do
 
 	root    'sessions#new'
 
-	get     'home'    => 'static_pages#home'
-	get     'login'   => 'sessions#new'
-	post    'login'   => 'sessions#create'
-	delete  'logout'  => 'sessions#destroy'
+	get     'home'      => 'static_pages#home'
+
+	get     'login'     => 'sessions#new'
+	post    'login'     => 'sessions#create'
+	delete  'logout'    => 'sessions#destroy'
+
+	get     'adduser'  => 'users#new'
 
 	resources :users
 
