@@ -23,7 +23,7 @@ Rails.application.configure do
 		:port           => 587,
 		:authentication => :plain,
 		:user_name      => 'pety7439@gmail.com',
-		:password       => 'kretenps7439',
+		:password       => '123456',
 		:domain         => 'localhost:3000',
 		:enable_starttls_auto => true
 	}
