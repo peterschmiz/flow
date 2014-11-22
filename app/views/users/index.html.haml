@@ -1,13 +1,16 @@
 - content_for(:title, 'User list')
 .row
 	.col-md-6.col-md-offset-3
-		= will_paginate
+		%ul.pagination
+			= will_paginate @users, :container => false
 		%table.table
 			%thead
 				%tr
 					%th ID
 					%th Name
 					%th Email
+					- if current_user.admin?
+						%th{:colspan => 2} Actions
 			%tbody
 				- @users.each do |user|
 					%tr
@@ -17,4 +20,10 @@
 						%td
 							%a{ :href => "mailto:#{user.email}" }
 								#{user.email}
-		= will_paginate
+						- if current_user.admin? && !current_user?(user)
+							%td
+								= link_to 'edit', edit_user_path(user)
+							%td
+								= link_to 'delete', user, method: :delete, data: { confirm: 'You sure?' }
+		%ul.pagination
+			= will_paginate @users, :container => false

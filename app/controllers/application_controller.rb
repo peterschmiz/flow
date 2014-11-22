@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
 	private
 
+	# Before filters
+
 	def require_login
 		unless current_user
 			store_location

@@ -1,5 +1,11 @@
-User.create!(name:                  'Flow Test',
-             email:                 'flow@flow.com',
+User.create!(name:                  'Flow Admin',
+             email:                 'flowadmin@flow.com',
+             password:              'flow123',
+             password_confirmation: 'flow123',
+             admin:                 true)
+
+User.create!(name:                  'Flow User',
+             email:                 'flowuser@flow.com',
              password:              'flow123',
              password_confirmation: 'flow123')
 
