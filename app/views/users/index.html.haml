@@ -9,6 +9,7 @@
 					%th ID
 					%th Name
 					%th Email
+					%th Position
 					- if current_user.admin?
 						%th{:colspan => 2} Actions
 			%tbody
@@ -20,6 +21,7 @@
 						%td
 							%a{ :href => "mailto:#{user.email}" }
 								#{user.email}
+						%td #{user.position}
 						- if current_user.admin? && !current_user?(user)
 							%td
 								= link_to 'edit', edit_user_path(user)

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	before_action :admin_user, only: :destroy
 
 	def index
-		@users = User.paginate(page: params[:page])
+		@users = User.paginate(page: params[:page]).order('id ASC')
 	end
 
 	def show
@@ -18,8 +18,8 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			flash[:success] = 'New Flow user added!'
-			redirect_to @user
+			flash[:info] = 'Please contact admin to activate your account!'
+			redirect_to root_url
 		else
 			render 'new'
 		end
@@ -51,7 +51,8 @@ class UsersController < ApplicationController
 
 	def user_params
 		params.require(:user).permit(:name, :email, :password,
-		                             :password_confirmation, :admin)
+		                             :password_confirmation, :position,
+		                             :admin, :activated)
 	end
 
 	# Before filters

@@ -2,16 +2,22 @@ flowtest:
   name: Flow Test
   email: flow@flow.com
   password_digest: <%= User.digest('password') %>
+  position: Head of QA
   admin: true
+  activated: true
 
 flowtest2:
   name: Flow Test 2
   email: flow2@flow.com
   password_digest: <%= User.digest('password') %>
+  position: Developer
+  activated: false
 
 <% 30.times do |n| %>
 user_<%= n %>:
   name:  <%= "User #{n}" %>
   email: <%= "user-#{n}@flow.com" %>
   password_digest: <%= User.digest('password') %>
+  position: <%= "Developer #{n}" %>
+  activated: true
 <% end %>
