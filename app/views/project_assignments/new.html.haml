@@ -1,0 +1,16 @@
+- content_for(:title, 'Add user to a project')
+.row
+	.col-md-6.col-md-offset-3
+		= form_for(:project_assignment, url: project_assignments_path, :html => {:class => 'form-horizontal', :method => 'post'}, :role => 'form') do |f|
+			= render :partial => 'shared/error_messages'
+			.form-group
+				= f.label :project_id, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.collection_select :project_id, projects_for_select(@project.id), :id, :name, {}, {:class => 'form-control', :readonly => true}
+			.form-group
+				= f.label :user_id, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.collection_select :user_id, users_for_select, :id, :name, {}, {:class => 'form-control'}
+			.form-group
+				.col-sm-offset-2.col-sm-10
+					= f.submit 'Add user to project', :class => 'btn btn-default'

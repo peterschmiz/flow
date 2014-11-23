@@ -11,7 +11,14 @@ Rails.application.routes.draw do
 	get 'adduser' => 'users#new'
 	get 'edituser/:id' => 'users#edit'
 
+	get 'addproject' => 'projects#new'
+	get 'editproject/:id' => 'projects#edit'
+
+	get 'assign/:id', to: 'project_assignments#new', as: 'assign'
+
 	resources :users
+	resources :projects
+	resources :project_assignments
 
 	# The priority is based upon order of creation: first created -> highest priority.
 	# See how all your routes lay out with "rake routes".

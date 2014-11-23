@@ -12,7 +12,7 @@
 				%a{ :href => "mailto:#{@user.email}" }
 					= @user.email
 			%dt Permission level
-			- if current_user && current_user.admin?
+			- if @user.admin?
 				%dd Admin
 			- else
 				%dd Normal user

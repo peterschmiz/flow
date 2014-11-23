@@ -1,0 +1,50 @@
+- content_for(:title, 'Add new project')
+.row
+	.col-md-6.col-md-offset-3
+		= form_for(:project, url: projects_path, :html => {:class => 'form-horizontal', :method => 'post'}, :role => 'form') do |f|
+			= render :partial => 'shared/error_messages'
+			.form-group
+				= f.label :name, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.text_field :name, :class => 'form-control', :placeholder => 'Name'
+			.form-group
+				= f.label :description, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.text_area :description, :class => 'form-control', :placeholder => 'Description'
+			.form-group
+				= f.label :url, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.text_field :url, :class => 'form-control', :placeholder => 'URL'
+			.form-group
+				= f.label :owner_id, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.collection_select :owner_id, users_for_select, :id, :name, {}, {:class => 'form-control'}
+			.form-group
+				= f.label :preview_deadline, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					.row
+						.col-md-4
+							= select_year Date.today, {}, {:id => 'project_preview_deadline', :name => 'project[preview_deadline[year]]', :class => 'form-control'}
+						.col-md-4
+							= select_month Date.today, {}, {:id => 'project_preview_deadline-month', :name => 'project[preview_deadline[month]]', :class => 'form-control'}
+						.col-md-4
+							= select_day Date.today, {}, {:id => 'project_preview_deadline-day', :name => 'project[preview_deadline[day]]', :class => 'form-control'}
+			.form-group
+				= f.label :live_deadline, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					.row
+						.col-md-4
+							= select_year Date.today, {}, {:id => 'project_live_deadline', :name => 'project[live_deadline[year]]', :class => 'form-control'}
+						.col-md-4
+							= select_month Date.today, {}, {:id => 'project_live_deadline-month', :name => 'project[live_deadline[month]]', :class => 'form-control'}
+						.col-md-4
+							= select_day Date.today, {}, {:id => 'project_live_deadline-day', :name => 'project[live_deadline[day]]', :class => 'form-control'}
+			.form-group
+				.col-sm-offset-2.col-sm-10
+					.checkbox
+						%label
+							= f.check_box :active
+							Active
+			.form-group
+				.col-sm-offset-2.col-sm-10
+					= f.submit 'Add project', :class => 'btn btn-default'

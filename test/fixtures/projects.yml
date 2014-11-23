@@ -1,0 +1,29 @@
+flowproject:
+  name: Flow Sample project
+  active: true
+  description: This is a sample project
+  url: http://www.flow.com
+  preview_deadline: 2014-11-23
+  live_deadline: 2014-11-23
+  owner_id: 1
+  created_at: <%= 10.minutes.ago %>
+
+flowproject2:
+  name: Flow Sample project 2
+  active: true
+  description: This is a sample project 2
+  url: http://www.flow.com
+  preview_deadline: 2014-11-23
+  live_deadline: 2014-11-23
+  owner_id: 1
+  created_at: <%= 20.minutes.ago %>
+
+flowproject3:
+  name: Flow Sample project 3
+  active: false
+  description: This is a sample project 3
+  url: http://www.flow.com
+  preview_deadline: 2014-11-23
+  live_deadline: 2014-11-23
+  owner_id: 1
+  created_at: <%= 40.minutes.ago %>

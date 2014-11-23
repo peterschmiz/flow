@@ -1,0 +1,60 @@
+%h3 Project info
+.panel.panel-default
+	.panel-heading
+		Basic project informations
+	.panel-body
+		%dl.dl-horizontal
+			%dt Project name
+			%dd
+				= @project.name
+			%dt Description
+			%dd
+				= @project.description
+			%dt Project owner
+			%dd
+				= project_owner_name @project.owner_id
+			%dt URL
+			%dd
+				%a{ :href => "#{@project.url}", :target => '_blank' }
+					= @project.url
+			%dt Preview deadline
+			%dd
+				= @project.preview_deadline
+			%dt Live deadline
+			%dd
+				= @project.live_deadline
+			%dt Status
+			- if @project.active
+				%dd
+					%span.label.label-success
+						Active
+			- else
+				%dd
+					%span.label.label-warning
+						Inactive
+
+.panel.panel-default
+	.panel-heading
+		User assignments
+	.panel-body
+		.table-responsive
+			%table.table
+				%thead
+					%tr
+						%th User
+						%th Email
+						%th Position
+						- if current_user.admin?
+							%th{:colspan => 2} Actions
+				%tbody
+					- @users.each do |user|
+						%tr
+							%td #{user.id}
+							%td
+								= link_to user.name, user
+							%td
+								%a{ :href => "mailto:#{user.email}" }
+									#{user.email}
+							%td #{user.position}
+
+
