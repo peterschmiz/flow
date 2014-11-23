@@ -1,4 +1,27 @@
-%h3
-	= @user.name
-	%small
-		= @user.email
+%h3 Profile
+.panel.panel-default
+	.panel-heading
+		Basic account informations
+	.panel-body
+		%dl.dl-horizontal
+			%dt Full name
+			%dd
+				= @user.name
+			%dt Email
+			%dd
+				%a{ :href => "mailto:#{@user.email}" }
+					= @user.email
+			%dt Permission level
+			- if current_user && current_user.admin?
+				%dd Admin
+			- else
+				%dd Normal user
+
+.panel.panel-default
+	.panel-heading
+		Company informations
+	.panel-body
+		%dl.dl-horizontal
+			%dt Position
+			%dd
+				= @user.position

@@ -3,29 +3,30 @@
 	.col-md-6.col-md-offset-3
 		%ul.pagination
 			= will_paginate @users, :container => false
-		%table.table
-			%thead
-				%tr
-					%th ID
-					%th Name
-					%th Email
-					%th Position
-					- if current_user.admin?
-						%th{:colspan => 2} Actions
-			%tbody
-				- @users.each do |user|
+		.table-responsive
+			%table.table
+				%thead
 					%tr
-						%td #{user.id}
-						%td
-							= link_to user.name, user
-						%td
-							%a{ :href => "mailto:#{user.email}" }
-								#{user.email}
-						%td #{user.position}
-						- if current_user.admin? && !current_user?(user)
+						%th ID
+						%th Name
+						%th Email
+						%th Position
+						- if current_user.admin?
+							%th{:colspan => 2} Actions
+				%tbody
+					- @users.each do |user|
+						%tr
+							%td #{user.id}
 							%td
-								= link_to 'edit', edit_user_path(user)
+								= link_to user.name, user
 							%td
-								= link_to 'delete', user, method: :delete, data: { confirm: 'You sure?' }
+								%a{ :href => "mailto:#{user.email}" }
+									#{user.email}
+							%td #{user.position}
+							- if current_user.admin? && !current_user?(user)
+								%td
+									= link_to 'edit', edit_user_path(user)
+								%td
+									= link_to 'delete', user, method: :delete, data: { confirm: 'You sure?' }
 		%ul.pagination
 			= will_paginate @users, :container => false
