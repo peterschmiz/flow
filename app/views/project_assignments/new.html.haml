@@ -10,7 +10,7 @@
 			.form-group
 				= f.label :user_id, :class => 'col-sm-2 control-label'
 				.col-sm-10
-					= f.collection_select :user_id, users_for_select, :id, :name, {}, {:class => 'form-control'}
+					= f.collection_select :user_id, users_for_select_by_id(@project.id), :id, :name, {}, {:class => 'form-control'}
 			.form-group
 				.col-sm-offset-2.col-sm-10
 					= f.submit 'Add user to project', :class => 'btn btn-default'
