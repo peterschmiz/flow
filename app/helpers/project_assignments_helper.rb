@@ -1,7 +1,7 @@
 module ProjectAssignmentsHelper
 
 	def users_for_select_by_id(project_id)
-		User.find_by_sql('SELECT * FROM users WHERE activated = TRUE AND id NOT IN (SELECT user_id FROM project_assignments WHERE project_id = ' + project_id.to_s + ') ORDER BY name ASC')
+		User.where(activated: true).where.not(id: ProjectAssignment.select(:user_id).where(project_id: project_id)).order(name: :asc)
 	end
 
 	def projects_for_select(project_id)
