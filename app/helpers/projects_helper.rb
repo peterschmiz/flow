@@ -5,7 +5,9 @@ module ProjectsHelper
 	end
 
 	def project_owner_name(user_id)
-		@user = User.find_by(id: user_id).name
+		if user_id
+			@user = User.find_by(id: user_id).name
+		end
 	end
 
 end

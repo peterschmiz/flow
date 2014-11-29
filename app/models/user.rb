@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :project_assignments
 	has_many :projects, through: :project_assignments
+	has_one :division
 
 	default_scope -> { order('name ASC') }
 

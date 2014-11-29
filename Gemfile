@@ -19,7 +19,7 @@ gem 'rails-html-sanitizer',     '1.0.1'
 
 gem 'sdoc',                     '0.4.0',  group: :doc
 gem 'bcrypt',                   '3.1.7'
-gem 'faker',                    '1.4.2'
+gem 'faker',                    '1.4.3'
 gem 'will_paginate',            '3.0.7'
 gem 'bootstrap-will_paginate',  '0.0.10'
 gem 'pg',                       '0.17.1'
