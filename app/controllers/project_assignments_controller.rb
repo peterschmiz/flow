@@ -30,6 +30,9 @@ class ProjectAssignmentsController < ApplicationController
 	end
 
 	def destroy
+		ProjectAssignment.where(project_id: params[:project_id]).where(user_id: params[:user_id]).first.destroy
+		flash[:success] = 'Assignment deleted!'
+		redirect_to project_path(params[:project_id])
 	end
 
 	private

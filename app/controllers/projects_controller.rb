@@ -57,6 +57,9 @@ class ProjectsController < ApplicationController
 		Project.find(params[:id]).destroy
 		flash[:success] = 'Project deleted!'
 		redirect_to projects_path
+	rescue ActiveRecord::DeleteRestrictionError => e
+		flash[:danger] = 'Project is associated with a user! Can\'t be deleted!'
+		redirect_to projects_path
 	end
 
 	private

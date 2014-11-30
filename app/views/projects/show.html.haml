@@ -12,7 +12,7 @@
 				= @project.description
 			%dt Project owner
 			%dd
-				= project_owner_name @project.owner_id
+				= link_to project_owner_name(@project.owner_id), user_path(@project.owner_id)
 			%dt URL
 			%dd
 				%a{ :href => "#{@project.url}", :target => '_blank' }
@@ -33,27 +33,33 @@
 					%span.label.label-warning
 						Inactive
 
-.panel.panel-default
-	.panel-heading
-		User assignments
-	.panel-body
-		.table-responsive
-			%table.table
-				%thead
-					%tr
-						%th ID
-						%th User
-						%th Email
-						%th Position
-				%tbody
-					- @users.each do |user|
+- if @users.length > 0
+	.panel.panel-default
+		.panel-heading
+			User assignments
+		.panel-body
+			.table-responsive
+				%table.table
+					%thead
 						%tr
-							%td #{user.id}
-							%td
-								= link_to user.name, user
-							%td
-								%a{ :href => "mailto:#{user.email}" }
-									#{user.email}
-							%td #{user.position}
+							%th ID
+							%th User
+							%th Email
+							%th Position
+							- if current_user.admin? || current_user.id === project.owner_id
+								%th Action
+					%tbody
+						- @users.each do |user|
+							%tr
+								%td #{user.id}
+								%td
+									= link_to user.name, user
+								%td
+									%a{ :href => "mailto:#{user.email}" }
+										#{user.email}
+								%td #{user.position}
+								- if current_user.admin? || current_user.id === project.owner_id
+									%td
+										= link_to 'delete', project_assignment_path(:user_id => user.id, :project_id => @project.id), method: :delete, data: { confirm: 'You sure?' }
 
 

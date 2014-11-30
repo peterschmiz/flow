@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 	get 'editproject/:id' => 'projects#edit'
 
 	get 'assign/:id', to: 'project_assignments#new', as: 'assign'
+	delete 'project_assignments/:id', to: 'project_assignments#destroy'
 
 	get 'adddivision' => 'divisions#new'
 	get 'editdivision' => 'divisions#edit'

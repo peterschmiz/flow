@@ -73,7 +73,7 @@ Project.create!(name:        'HSBC TimeHop',
 	live_deadline    = Faker::Date.forward(30)
 	Project.create!(name:             name,
 	                description:      description,
-	                url:              url,
+	                url:              'http://' + url,
 	                preview_deadline: preview_deadline,
 	                live_deadline:    live_deadline,
 	                active:           false)
