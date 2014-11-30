@@ -24,6 +24,10 @@
 				.col-sm-10
 					= f.password_field :password_confirmation, :class => 'form-control'
 			.form-group
+				= f.label :division_id, :class => 'col-sm-2 control-label'
+				.col-sm-10
+					= f.collection_select :division_id, divisions_for_select, :id, :name, {}, {:class => 'form-control'}
+			.form-group
 				.col-sm-offset-2.col-sm-10
 					.checkbox
 						%label

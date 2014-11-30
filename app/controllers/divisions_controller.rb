@@ -44,6 +44,9 @@ class DivisionsController < ApplicationController
 		Division.find(params[:id]).destroy
 		flash[:success] = 'Division deleted!'
 		redirect_to divisions_path
+	rescue ActiveRecord::DeleteRestrictionError => e
+		flash[:danger] = 'Division is associated with a user! Can\'t be deleted!'
+		redirect_to divisions_path
 	end
 
 	private
