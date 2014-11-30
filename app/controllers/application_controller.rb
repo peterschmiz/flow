@@ -6,6 +6,19 @@ class ApplicationController < ActionController::Base
 
 	before_filter :require_login
 
+	protected
+
+	# Shared before filters
+
+	# Confirms a logged-in user.
+	def logged_in_user
+		unless logged_in?
+			store_location
+			flash[:danger] = 'Please log in!'
+			redirect_to login_url
+		end
+	end
+
 	private
 
 	# Before filters

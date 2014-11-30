@@ -44,3 +44,19 @@
 					- @project_assignment.errors.full_messages.each do |msg|
 						%li
 							= msg
+
+-if @division
+	- if @division.errors.any?
+		%div{ :id => 'error_explanation'}
+			.alert.alert-danger.alert-dismissible
+				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
+					%span{ 'aria-hidden' => 'true' }
+						&times;
+					%span{ :class => 'sr-only' }
+						Close
+				%h4
+					The form contains #{pluralize(@division.errors.count, "error")}.
+				%ul
+					- @division.errors.full_messages.each do |msg|
+						%li
+							= msg

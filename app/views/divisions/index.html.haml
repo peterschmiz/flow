@@ -1,0 +1,22 @@
+- content_for(:title, 'Divisions list')
+.row
+	.col-md-6.col-md-offset-3
+		.table-responsive
+			%table.table
+				%thead
+					%tr
+						%th ID
+						%th Name
+						- if current_user.admin?
+							%th{:colspan => 2} Actions
+				%tbody
+					- @divisions.each do |division|
+						%tr
+							%td #{division.id}
+							%td
+								= link_to division.name, division
+							- if current_user.admin?
+								%td
+									= link_to 'edit', edit_division_path(division)
+								%td
+									= link_to 'delete', division, method: :delete, data: { confirm: 'You sure?' }

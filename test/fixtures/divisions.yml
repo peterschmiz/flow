@@ -1,9 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
+flowdivision1:
+  name: C Test Division 1
+  description: Test division for testing purposes
 
-two:
-  name: MyString
-  description: MyText
+flowdivision2:
+  name: B Test Division 2
+  description: Test division for testing purposes
+
+flowdivision3:
+  name: A Test Division 3
+  description: Test division for testing purposes
+

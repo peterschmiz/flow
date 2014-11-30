@@ -1,7 +1,7 @@
 module ProjectsHelper
 
 	def users_for_select
-		User.where :activated => 1
+		User.where(activated: true)
 	end
 
 	def project_owner_name(user_id)

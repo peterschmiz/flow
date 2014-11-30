@@ -1,0 +1,37 @@
+%h3 Division info
+.panel.panel-default
+	.panel-heading
+		Basic division informations
+	.panel-body
+		%dl.dl-horizontal
+			%dt Divusion name
+			%dd
+				= @division.name
+			%dt Description
+			%dd
+				= @division.description
+
+.panel.panel-default
+	.panel-heading
+		User assignments
+	.panel-body
+		.table-responsive
+			%table.table
+				%thead
+					%tr
+						%th ID
+						%th User
+						%th Email
+						%th Position
+				%tbody
+					- @users.each do |user|
+						%tr
+							%td #{user.id}
+							%td
+								= link_to user.name, user
+							%td
+								%a{ :href => "mailto:#{user.email}" }
+									#{user.email}
+							%td #{user.position}
+
+

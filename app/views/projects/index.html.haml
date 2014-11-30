@@ -10,8 +10,7 @@
 						%th ID
 						%th Name
 						%th Active
-						- if current_user.admin? || current_user.id === project.owner_id
-							%th{:colspan => 3} Actions
+						%th{:colspan => 3} Actions
 				%tbody
 					- @projects.each do |project|
 						%tr
@@ -33,5 +32,7 @@
 								%td
 									-if project.active?
 										= link_to 'assign', assign_path(project.id)
+							- else
+								%td{:colspan => 3}
 		%ul.pagination
 			= will_paginate @projects, :container => false
