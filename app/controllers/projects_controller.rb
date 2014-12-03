@@ -7,13 +7,9 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		@users = []
 		@project = Project.find(params[:id])
-		@assignments = ProjectAssignment.where :project_id => @project.id
-		@assignments.each do |assign|
-			user = User.find(assign.user_id)
-			@users << user
-		end
+		@users = get_assigned_users(@project.id)
+		@divisions = Division.all.order(name: :asc)
 	end
 
 	def new
@@ -41,15 +37,11 @@ class ProjectsController < ApplicationController
 
 	def update
 		@project = Project.find(params[:id])
-		deadlines = convert_deadlines(params[:project])
-		@project.assign_attributes(project_params)
-		@project.preview_deadline = deadlines[:preview_deadline]
-		@project.live_deadline = deadlines[:live_deadline]
-		if @project.save
-			flash[:success] = 'Project updated!'
+		if params[:project]
+			update_project(params)
+		elsif params[:resource_update]
+			update_resources(params)
 			redirect_to @project
-		else
-			render 'edit'
 		end
 	end
 
@@ -63,6 +55,65 @@ class ProjectsController < ApplicationController
 	end
 
 	private
+
+	def update_resources(params)
+		id = -1
+		unit = 0
+
+		params.each do |key, val|
+			raw = key.split('_')
+
+			if raw[0] == 'division'
+				id = raw[1]
+				unit = val.to_i
+				add_resource_need(id, unit)
+			end
+
+		end
+
+	end
+
+	def add_resource_need(division_id, unit)
+
+		if ProjectResource.exists?(:division_id => division_id, :project_id => @project.id)
+			@resource_need = ProjectResource.where(:division_id => division_id, :project_id => @project.id).first
+		else
+			@resource_need = ProjectResource.new
+		end
+
+		@resource_need.division_id = division_id;
+		@resource_need.project_id = @project.id;
+		@resource_need.unit = unit;
+
+		if @resource_need.save
+			flash[:success] = 'Project resource needs updated!'
+		else
+			flash[:danger] = 'Project resource update error!'
+		end
+	end
+
+	def update_project(params)
+		deadlines = convert_deadlines(params[:project])
+		@project.assign_attributes(project_params)
+		@project.preview_deadline = deadlines[:preview_deadline]
+		@project.live_deadline = deadlines[:live_deadline]
+		if @project.save
+			flash[:success] = 'Project updated!'
+			redirect_to @project
+		else
+			render 'edit'
+		end
+	end
+
+	def get_assigned_users(project_id)
+		users = []
+		assignments = ProjectAssignment.where :project_id => project_id
+		assignments.each do |assign|
+			user = User.find(assign.user_id)
+			users << user
+		end
+		return users
+	end
 
 	def project_params
 		params.require(:project).permit(:name, :description, :active, :url, :owner_id,

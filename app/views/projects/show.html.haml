@@ -33,6 +33,31 @@
 					%span.label.label-warning
 						Inactive
 
+- if @divisions.length > 0
+	.panel.panel-default
+		.panel-heading
+			Resource needs by divisions
+		.panel-body
+			= form_for(:project, url: @project, :html => {:method => 'patch'}, :role => 'form') do
+				= hidden_field_tag(:resource_update, 1)
+				.table-responsive
+					%table.table
+						%thead
+							%tr
+								%th Division
+								%th Resource need
+								%th Unit
+								%th
+						%tbody
+							- @divisions.each do |division|
+								%tr
+									%td #{division.name}
+									%td
+										= text_field_tag 'division_' + division.id.to_s, get_project_resource(@project.id, division.id), :placeholder => 'Enter unit...', :class => 'form-control'
+									%td hour(s)
+									%td
+										= submit_tag 'Save unit', :class => 'btn btn-primary'
+
 - if @users.length > 0
 	.panel.panel-default
 		.panel-heading
