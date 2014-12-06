@@ -1,0 +1,10 @@
+.row
+	.col-md-6.col-md-offset-3
+		- flash.each do |message_type, message|
+			.alert.alert-dismissible{:class => " alert-#{message_type}"}
+				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
+					%span{ 'aria-hidden' => 'true' }
+						&times;
+					%span{ :class => 'sr-only' }
+						Close
+				= message.html_safe

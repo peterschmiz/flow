@@ -1,5 +1,5 @@
--if @user
-	- if @user.errors.any?
+-if sender
+	- if sender.errors.any?
 		%div{ :id => 'error_explanation'}
 			.alert.alert-danger.alert-dismissible
 				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
@@ -8,55 +8,8 @@
 					%span{ :class => 'sr-only' }
 						Close
 				%h4
-					The form contains #{pluralize(@user.errors.count, "error")}.
+					The form contains #{pluralize(sender.errors.count, "error")}.
 				%ul
-					- @user.errors.full_messages.each do |msg|
-						%li
-							= msg
--if @project
-	- if @project.errors.any?
-		%div{ :id => 'error_explanation'}
-			.alert.alert-danger.alert-dismissible
-				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
-					%span{ 'aria-hidden' => 'true' }
-						&times;
-					%span{ :class => 'sr-only' }
-						Close
-				%h4
-					The form contains #{pluralize(@project.errors.count, "error")}.
-				%ul
-					- @project.errors.full_messages.each do |msg|
-						%li
-							= msg
-
--if @project_assignment
-	- if @project_assignment.errors.any?
-		%div{ :id => 'error_explanation'}
-			.alert.alert-danger.alert-dismissible
-				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
-					%span{ 'aria-hidden' => 'true' }
-						&times;
-					%span{ :class => 'sr-only' }
-						Close
-				%h4
-					The form contains #{pluralize(@project_assignment.errors.count, "error")}.
-				%ul
-					- @project_assignment.errors.full_messages.each do |msg|
-						%li
-							= msg
-
--if @division
-	- if @division.errors.any?
-		%div{ :id => 'error_explanation'}
-			.alert.alert-danger.alert-dismissible
-				%button.close{ :type => 'button', :data => { :dismiss => 'alert'} }
-					%span{ 'aria-hidden' => 'true' }
-						&times;
-					%span{ :class => 'sr-only' }
-						Close
-				%h4
-					The form contains #{pluralize(@division.errors.count, "error")}.
-				%ul
-					- @division.errors.full_messages.each do |msg|
+					- sender.errors.full_messages.each do |msg|
 						%li
 							= msg

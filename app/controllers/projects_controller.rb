@@ -65,8 +65,16 @@ class ProjectsController < ApplicationController
 
 			if raw[0] == 'division'
 				id = raw[1]
-				unit = val.to_i
-				add_resource_need(id, unit)
+				if val.is_i?
+					unit = val.to_i
+					add_resource_need(id, unit)
+				else
+					if !flash.key?('warning')
+						flash[:warning] = 'Project unit can be only number!<br>Unit for ' + Division.find(id).name + ' was not updated!'
+					else
+						flash[:warning] << '<br>Unit for ' + Division.find(id).name + ' was not updated!'
+					end
+				end
 			end
 
 		end

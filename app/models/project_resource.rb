@@ -4,5 +4,5 @@ class ProjectResource < ActiveRecord::Base
 
 	validates :division_id, uniqueness: {scope: :project_id}, presence: true
 	validates :project_id, presence: true
-	validates :unit, presence: true
+	validates :unit, presence: true, numericality: { only_integer: true }
 end
