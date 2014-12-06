@@ -10,6 +10,7 @@
 						%th ID
 						%th Name
 						%th Email
+						%th Division
 						%th Position
 						- if current_user.admin?
 							%th{:colspan => 2} Actions
@@ -22,6 +23,8 @@
 							%td
 								%a{ :href => "mailto:#{user.email}" }
 									#{user.email}
+							%td
+								= division_name(user.division_id)
 							%td #{user.position}
 							- if current_user.admin?
 								%td

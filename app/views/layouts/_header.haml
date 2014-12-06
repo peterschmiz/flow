@@ -8,6 +8,8 @@
 					%p.navbar-text
 						Signed in as #{current_user.name}
 			%ul.nav.navbar-nav.navbar-right
+				%li
+					%a Book times
 				- if logged_in?
 					%li.dropdown
 						%a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown", "role" => "button", "aria-expanded" => "false"}
