@@ -11,6 +11,8 @@ class BookingsController < ApplicationController
 		if (session[:booking_interval])
 			@booking_interval = session[:booking_interval]
 		end
+		@days = get_days(@booking_date, @booking_interval)
+		@projects = get_projects
 	end
 
 	def setdate
@@ -21,6 +23,17 @@ class BookingsController < ApplicationController
 			session[:booking_interval] = params[:booking_interval]['week'].to_i
 		end
 		redirect_to bookings_path
+	end
+
+	private
+
+	def get_projects
+		Project.where(active: true).order(name: :asc)
+	end
+
+	def get_days(start, interval)
+		end_date = start + (interval * 7)
+		every_day = (start..end_date).to_a
 	end
 
 end
