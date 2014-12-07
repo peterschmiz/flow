@@ -1,0 +1,26 @@
+- content_for(:title, 'Bookings')
+.row
+	.col-md-10.col-md-offset-1
+		= form_for(:booking, url: @booking, url: {action: 'setdate'}, :html => {:class => 'form-horizontal', :method => 'post'}, :role => 'form') do
+			= hidden_field_tag(:set_booking_date, 1)
+			.form-group
+				= label_tag 'booking_date', 'Set booking date', :class => 'col-sm-2 control-label'
+				.col-sm-10
+					.row
+						.col-md-3
+							= select_year @booking_date.year, {}, {:id => 'booking_date', :name => 'booking_date[year]', :class => 'form-control'}
+						.col-md-3
+							= select_month @booking_date.month, {}, {:id => 'booking_date-month', :name => 'booking_date[month]', :class => 'form-control'}
+						.col-md-3
+							= select_day @booking_date.day, {}, {:id => 'booking_date-day', :name => 'booking_date[day]', :class => 'form-control'}
+						.col-md-3
+							= submit_tag 'Set date', :class => 'btn btn-default'
+			.form-group
+				= label_tag 'booking_interval', 'Set interval', :class => 'col-sm-2 control-label'
+				.col-sm-10
+					.row
+						.col-md-3
+							= select :booking_interval, :week, options_for_select([['1 week', 1], ['2 weeks', 2], ['4 weeks', 4]], @booking_interval), {}, {:class => 'form-control'}
+.row
+	.col-md-10.col-md-offset-1
+		asdasdsad

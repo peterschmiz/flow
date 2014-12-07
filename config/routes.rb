@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 	get 'adddivision' => 'divisions#new'
 	get 'editdivision' => 'divisions#edit'
 
+	get 'bookings' => 'bookings#index'
+	post 'bookings/setdate' => 'bookings#setdate'
+
 	resources :users
 	resources :projects
 	resources :project_assignments
