@@ -11,6 +11,10 @@ module BookingsHelper
 		Division.where(id: division_ids).order(name: :asc)
 	end
 
+	def get_booked_unit(project_id, user_id, date)
+		Booking.where(project_id: project_id, user_id: user_id, date: date).pluck(:unit)
+	end
+
 	def get_assigned_division_users(project_id, division_id)
 		user_ids = []
 		assignes = ProjectAssignment.where(project_id: project_id)

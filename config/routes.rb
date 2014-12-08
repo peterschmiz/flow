@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
 	get 'bookings' => 'bookings#index'
 	post 'bookings/setdate' => 'bookings#setdate'
+	post 'bookings/update-bookings' => 'bookings#update_bookings'
 
 	resources :users
 	resources :projects

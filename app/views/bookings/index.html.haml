@@ -21,42 +21,57 @@
 					.row
 						.col-md-3
 							= select :booking_interval, :week, options_for_select([['1 week', 1], ['2 weeks', 2], ['4 weeks', 4]], @booking_interval), {}, {:class => 'form-control'}
+						.col-md-3
+							.checkbox
+								%label
+									= check_box_tag :only_workdays, 1, @only_workdays
+									Show only workdays
+
 .row
 	.col-md-12
 		.table-responsive
-			%table.table.table-bordered.table-condensed
-				%thead
-					%tr
-						%th Project / Member
-						- @days.each do |day|
-							- if day.saturday? || day.sunday?
-								%th{:class => 'bg-warning'}
-									#{day.strftime('%a')}<br>
-									%small #{day.strftime('%d/%m')}
-							- else
-								%th{:class => 'bg-success'}
-									#{day.strftime('%a')}<br>
-									%small #{day.strftime('%d/%m')}
-				%tbody
-					- @projects.each do |project|
+			= form_for(:booking, url: @booking, url: {action: 'update_bookings'}, :html => {:class => 'form-horizontal', :method => 'post'}, :role => 'form') do
+				= hidden_field_tag(:update_bookings, 1)
+				%table.table.table-bordered.table-condensed
+					%thead
 						%tr
-							%th{:colspan => @days.size + 1, :class => 'bg-primary'}
-								#{project.name}
-						- divisions = get_assigned_division(project.id)
-						- divisions.each do |division|
+							%th Project / Member
+							- @days.each do |day|
+								- if (day.saturday? || day.sunday?) && !@only_workdays
+									%th{:class => 'bg-warning'}
+										#{day.strftime('%a')}<br>
+										%small #{day.strftime('%d/%m')}
+								- else
+									- if !day.saturday? && !day.sunday?
+										%th
+											#{day.strftime('%a')}<br>
+											%small #{day.strftime('%d/%m')}
+					%tbody
+						- @projects.each do |project|
 							%tr
-								%th{:colspan => @days.size + 1, :class => 'bg-info'}
-									#{division.name}
-							- users = get_assigned_division_users(project.id, division.id)
-							- users.each do |user|
+								%th{:colspan => @days.size + 1, :class => 'bg-primary'}
+									.row.booking-table
+										= label_tag 'booking_interval', project.name, :class => 'col-md-3 control-label'
+										.col-md-1.col-md-offset-8
+											.row.text-right
+												= submit_tag 'Save', :class => 'btn btn-default'
+
+							- divisions = get_assigned_division(project.id)
+							- divisions.each do |division|
 								%tr
-									%th #{user.name}
-									- @days.each do |day|
-										%td
-											- if day.saturday? || day.sunday?
-												= text_field_tag 'date_' + day.to_s + '_project_' + project.id.to_s + '_user_' + user.id.to_s, 0, :readonly => true, :class => 'form-control input-sm'
-											- else
-												= text_field_tag 'date_' + day.to_s + '_project_' + project.id.to_s + '_user_' + user.id.to_s, 0, :class => 'form-control input-sm'
+									%th{:colspan => @days.size + 1, :class => 'bg-info'}
+										#{division.name}
+								- users = get_assigned_division_users(project.id, division.id)
+								- users.each do |user|
+									%tr
+										%th #{user.name}
+										- @days.each do |day|
+											- if (@only_workdays && (!day.saturday? && !day.sunday?)) || !@only_workdays
+												%td
+													- if day.saturday? || day.sunday?
+														= text_field_tag 'bk_dis_date_' + day.to_s + '_project_' + project.id.to_s + '_user_' + user.id.to_s, '-', :readonly => true, :class => 'form-control input-sm'
+													- else
+														= text_field_tag 'bk_date_' + day.to_s + '_project_' + project.id.to_s + '_user_' + user.id.to_s, get_booked_unit(project.id, user.id, day), :placeholder => '-', :class => 'form-control input-sm'
 
 
 

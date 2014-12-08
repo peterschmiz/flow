@@ -89,9 +89,9 @@ class ProjectsController < ApplicationController
 			@resource_need = ProjectResource.new
 		end
 
-		@resource_need.division_id = division_id;
-		@resource_need.project_id = @project.id;
-		@resource_need.unit = unit;
+		@resource_need.division_id = division_id
+		@resource_need.project_id = @project.id
+		@resource_need.unit = unit
 
 		if @resource_need.save
 			flash[:success] = 'Project resource needs updated!'

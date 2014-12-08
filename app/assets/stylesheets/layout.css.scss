@@ -4,3 +4,17 @@
 .page-wrapper {
 	padding: 75px 0 15px;
 }
+
+.row {
+
+	&.booking-table {
+		margin-left: 0;
+		margin-right: 0;
+
+		label {
+			text-align: left;
+		}
+
+	}
+
+}
