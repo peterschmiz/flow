@@ -51,7 +51,7 @@
 							%tr
 								%th{:colspan => @days.size + 1, :class => 'bg-primary'}
 									.row.booking-table
-										= label_tag 'booking_interval', project.name, :class => 'col-md-3 control-label'
+										= link_to project.name, project, :class => 'col-md-3 control-label'
 										.col-md-1.col-md-offset-8
 											.row.text-right
 												= submit_tag 'Save', :class => 'btn btn-default'
@@ -60,7 +60,9 @@
 							- divisions.each do |division|
 								%tr
 									%th{:colspan => @days.size + 1, :class => 'bg-info'}
-										#{division.name}
+										- sum = get_sum_booked_unit(project.id, division.id)
+										#{division.name} - Booking summary: #{sum}
+
 								- users = get_assigned_division_users(project.id, division.id)
 								- users.each do |user|
 									%tr

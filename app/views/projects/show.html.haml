@@ -46,6 +46,7 @@
 							%tr
 								%th Division
 								%th Resource need
+								%th Resource booked
 								%th Unit
 								%th
 						%tbody
@@ -53,7 +54,18 @@
 								%tr
 									%td #{division.name}
 									%td
-										= text_field_tag 'division_' + division.id.to_s, get_project_resource(@project.id, division.id), :placeholder => 'Enter unit...', :class => 'form-control'
+										- need = get_project_resource(@project.id, division.id)
+										= text_field_tag 'division_' + division.id.to_s, need, :placeholder => 'Enter unit...', :class => 'form-control'
+									%td
+										.row
+											.col-md-2.text-center
+												- sum = get_sum_booked_unit(@project.id, division.id)
+												= sum
+											.col-md-10
+												.progress
+													- per = get_percentage(need, sum)
+													.progress-bar{:class => get_percentage_class(per), :role => 'progressbar', 'aria-valuenow' => per, 'aria-valuemin' => 0, 'aria-valuemax' => '100', :style => "width: #{per}%;"}
+														#{per}%
 									%td hour(s)
 									%td
 										= submit_tag 'Save unit', :class => 'btn btn-primary'
