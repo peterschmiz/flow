@@ -20,16 +20,18 @@ module ProjectsHelper
 
 	def get_percentage(total, actual)
 		per = 0
-		if total > 0
-			per = ((actual.to_f / total) * 100).to_i
-		elsif actual > total
-			per = 100
-		else
-			per = 0
-		end
+		if total && actual
+			if total > 0
+				per = ((actual.to_f / total) * 100).to_i
+			elsif actual > total
+				per = 100
+			else
+				per = 0
+			end
 
-		if per > 100
-			per = 100
+			if per > 100
+				per = 100
+			end
 		end
 
 		return per
