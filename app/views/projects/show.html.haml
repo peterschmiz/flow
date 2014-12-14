@@ -1,7 +1,14 @@
+%ol.breadcrumb
+	%li
+		= link_to 'Projects list', projects_path
+	%li
+		= @project.name
+
 %h3 Project info
 .panel.panel-default
 	.panel-heading
-		Basic project informations
+		Basic project informations -
+		= link_to 'Edit project', edit_project_path(@project)
 	.panel-body
 		%dl.dl-horizontal
 			%dt Project name
@@ -12,7 +19,10 @@
 				= @project.description
 			%dt Project owner
 			%dd
-				= link_to project_owner_name(@project.owner_id), user_path(@project.owner_id)
+				- if @project.owner_id
+					= link_to project_owner_name(@project.owner_id), user_path(@project.owner_id)
+				- else
+					Not assigned
 			%dt URL
 			%dd
 				%a{ :href => "#{@project.url}", :target => '_blank' }

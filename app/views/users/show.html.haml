@@ -1,7 +1,14 @@
+%ol.breadcrumb
+	%li
+		= link_to 'Users list', users_path
+	%li
+		= @user.name
+
 %h3 Profile
 .panel.panel-default
 	.panel-heading
-		Basic account informations
+		Basic account informations -
+		= link_to 'Edit user', edit_user_path(@user)
 	.panel-body
 		%dl.dl-horizontal
 			%dt Full name

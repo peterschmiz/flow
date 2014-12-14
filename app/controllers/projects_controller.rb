@@ -120,8 +120,10 @@ class ProjectsController < ApplicationController
 		users = []
 		assignments = ProjectAssignment.where :project_id => project_id
 		assignments.each do |assign|
-			user = User.find(assign.user_id)
-			users << user
+			user = User.where(id: assign.user_id).where(activated: true).first
+			if user
+				users << user
+			end
 		end
 		return users
 	end

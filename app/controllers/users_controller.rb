@@ -45,6 +45,9 @@ class UsersController < ApplicationController
 		User.find(params[:id]).destroy
 		flash[:success] = 'User deleted!'
 		redirect_to users_url
+	rescue ActiveRecord::DeleteRestrictionError => e
+		flash[:danger] = 'User is booked for a project! Can\'t be deleted!'
+		redirect_to users_url
 	end
 
 	private
