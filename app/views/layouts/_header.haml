@@ -3,23 +3,22 @@
 		.container-fluid
 		/ Brand and toggle get grouped for better mobile display
 		.navbar-header
-			%button.navbar-toggle.collapsed{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => '#bs-example-navbar-collapse-1'}
-				%span.sr-only Toggle navigation
-				%span.icon-bar
-				%span.icon-bar
-				%span.icon-bar
-
-			%a.navbar-brand{:href => '/'} Brand
+			- if logged_in?
+				%button.navbar-toggle.collapsed{:type => 'button', 'data-toggle' => 'collapse', 'data-target' => '#bs-example-navbar-collapse-1'}
+					%span.sr-only Toggle navigation
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
+			%a.navbar-brand{:href => '/'}
+				= image_tag 'flow-logo.png', :title => 'Flow', :alt => 'Flow'
 		/ Collect the nav links, forms, and other content for toggling
 		.collapse.navbar-collapse{:id => 'bs-example-navbar-collapse-1'}
 			- if logged_in?
 				%p.navbar-text
 					= link_to "Signed in as #{current_user.name}", current_user
-			%ul.nav.navbar-nav.navbar-right
-				- if logged_in?
+				%ul.nav.navbar-nav.navbar-right
 					%li
 						= link_to 'Bookings', bookings_path
-				- if logged_in?
 					%li.dropdown
 						%a.dropdown-toggle{:href => '#', 'data-toggle' => 'dropdown', :role => 'button', 'aria-expanded' => 'false'}
 							Menu

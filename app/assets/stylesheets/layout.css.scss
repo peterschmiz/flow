@@ -3,7 +3,25 @@
 
 .page-wrapper {
 	padding-top: 75px;
-    padding-bottom: 15px;
+	padding-bottom: 15px;
+}
+
+header .navbar {
+
+	.navbar-header {
+
+		.navbar-brand {
+			padding: 9px 9px;
+			line-height: 32px;
+		}
+
+	}
+
+	.navbar-brand img {
+		width: 32px;
+		height: 32px;
+	}
+
 }
 
 .row {
