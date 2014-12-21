@@ -9,9 +9,9 @@
 					%tr
 						%th ID
 						%th Name
-						%th Email
-						%th Division
-						%th Position
+						%th.hidden-xs Email
+						%th.hidden-xs Division
+						%th.hidden-xs Position
 						- if current_user.admin?
 							%th{:colspan => 2} Actions
 				%tbody
@@ -20,12 +20,12 @@
 							%td #{user.id}
 							%td
 								= link_to user.name, user
-							%td
+							%td.hidden-xs
 								%a{ :href => "mailto:#{user.email}" }
 									#{user.email}
-							%td
+							%td.hidden-xs
 								= division_name(user.division_id)
-							%td #{user.position}
+							%td.hidden-xs #{user.position}
 							- if current_user.admin?
 								%td
 									= link_to 'edit', edit_user_path(user)
