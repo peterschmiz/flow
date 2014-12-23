@@ -10,4 +10,16 @@ module ApplicationHelper
 		end
 	end
 
+	def active_projects
+		Project.where(active: true).count;
+	end
+
+	def active_users
+		User.where(activated: true).count;
+	end
+
+	def division_count
+		Division.count;
+	end
+
 end

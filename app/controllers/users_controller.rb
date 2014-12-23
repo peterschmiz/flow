@@ -4,7 +4,28 @@ class UsersController < ApplicationController
 	before_action :admin_user, only: :destroy
 
 	def index
-		@users = User.paginate(page: params[:page]).order('id ASC')
+		default_order = 'name'
+		default_dir = 'ASC'
+		sort_by = params[:sort_by]
+		sort_dir = params[:sort_dir]
+
+		if sort_dir && sort_dir == 'asc'
+			default_dir = 'ASC'
+		elsif sort_dir && sort_dir == 'desc'
+			default_dir = 'DESC'
+		end
+
+		if sort_by && sort_by == 'id'
+			default_order = 'id';
+		elsif sort_by && sort_by == 'name'
+			default_order = 'name'
+		elsif sort_by && sort_by == 'email'
+			default_order = 'email'
+		elsif sort_by && sort_by == 'pos'
+			default_order = 'position'
+		end
+
+		@users = User.paginate(page: params[:page]).order(default_order + ' ' + default_dir)
 	end
 
 	def show

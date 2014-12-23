@@ -1,2 +1,25 @@
 - content_for(:title, 'Home')
-Home
+%h2 Welcome to Flow!
+%p
+	Flow is a web-application which helps you to organize & controll projects, divisions and resources!
+%p
+	If you have any issue or need support please contact <a href="mailto:support@flow.com">support</a> for help!
+%p
+	For more help check out our <a href="#">Help section</a>
+
+%h3 Quick statistics
+.row
+	.col-xs-12.col-sm-6.col-md-4
+		%ul.list-group
+			%li.list-group-item
+				%span.badge
+					=active_projects
+				Active projects
+			%li.list-group-item
+				%span.badge
+					=active_users
+				Active users
+			%li.list-group-item
+				%span.badge
+					=division_count
+				Divisions

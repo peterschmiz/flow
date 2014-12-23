@@ -7,11 +7,27 @@
 			%table.table
 				%thead
 					%tr
-						%th ID
-						%th Name
-						%th.hidden-xs Email
+						%th.text-nowrap
+							%a{:href => "#{users_path + get_order_path('id')}"}
+								ID
+								- if is_order_active?('id')
+									%span.glyphicon.glyphicon.glyphicon-sort
+						%th
+							%a{:href => "#{users_path + get_order_path('name')}"}
+								Name
+								- if is_order_active?('name')
+									%span.glyphicon.glyphicon.glyphicon-sort
+						%th.hidden-xs
+							%a{:href => "#{users_path + get_order_path('email')}"}
+								Email
+								- if is_order_active?('email')
+									%span.glyphicon.glyphicon.glyphicon-sort
 						%th.hidden-xs Division
-						%th.hidden-xs Position
+						%th.hidden-xs
+							%a{:href => "#{users_path + get_order_path('pos')}"}
+								Position
+								- if is_order_active?('pos')
+									%span.glyphicon.glyphicon.glyphicon-sort
 						- if current_user.admin?
 							%th{:colspan => 2} Actions
 				%tbody
@@ -28,10 +44,16 @@
 							%td.hidden-xs #{user.position}
 							- if current_user.admin?
 								%td
-									= link_to 'edit', edit_user_path(user)
+									%span.hidden-xs
+										= link_to 'edit', edit_user_path(user)
+									%span.visible-xs
+										= link_to '', edit_user_path(user), :class => 'glyphicon glyphicon-edit'
 								-if !current_user?(user)
 									%td
-										= link_to 'delete', user, method: :delete, data: { confirm: 'You sure?' }
+										%span.hidden-xs
+											= link_to 'delete', user, method: :delete, data: { confirm: 'You sure?' }
+										%span.visible-xs
+											= link_to '', user, method: :delete, data: { confirm: 'You sure?' }, :class => 'glyphicon glyphicon-remove-sign'
 								- else
 									%td
 		%ul.pagination

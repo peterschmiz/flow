@@ -28,6 +28,10 @@ header .navbar {
 
 }
 
+table.table th.text-nowrap {
+	white-space: nowrap;
+}
+
 .row {
 
 	&.booking-table {

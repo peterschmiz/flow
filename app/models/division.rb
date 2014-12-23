@@ -3,5 +3,7 @@ class Division < ActiveRecord::Base
 
 	default_scope -> { order(name: :asc) }
 
-	validates :name, presence: true
+	validates :name, presence: true,
+	          uniqueness: {case_sensitive: false}
+
 end
