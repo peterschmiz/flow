@@ -16,6 +16,11 @@
 				- if logged_in?
 					%p.navbar-text
 						= link_to "Signed in as #{current_user.name}", current_user
+					/ Search bar
+					= form_for(:search, url: search_path, :html => {:class => 'navbar-form navbar-left'}, :role => 'search') do |f|
+						.form-group
+							%input.form-control{:name => 'query', :type => 'text', :placeholder => 'Search'}
+						%button.btn.btn-default{:type => 'submit'} Search
 					%ul.nav.navbar-nav.navbar-right
 						%li
 							= link_to 'Bookings', bookings_path

@@ -9,6 +9,14 @@ class UsersController < ApplicationController
 		sort_by = params[:sort_by]
 		sort_dir = params[:sort_dir]
 
+		if sort_by
+			sort_by = sort_by.downcase
+		end
+
+		if sort_dir
+			sort_dir = sort_dir.downcase
+		end
+
 		if sort_dir && sort_dir == 'asc'
 			default_dir = 'ASC'
 		elsif sort_dir && sort_dir == 'desc'
@@ -21,6 +29,8 @@ class UsersController < ApplicationController
 			default_order = 'name'
 		elsif sort_by && sort_by == 'email'
 			default_order = 'email'
+		elsif sort_by && sort_by == 'division'
+			default_order = 'division_id'
 		elsif sort_by && sort_by == 'pos'
 			default_order = 'position'
 		end

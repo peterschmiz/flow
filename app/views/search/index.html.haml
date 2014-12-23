@@ -1,0 +1,17 @@
+- content_for(:title, 'Search result')
+.row
+	.col-md-8.col-md-offset-2
+		%h2 Search results:
+		%p
+			There was <strong>#{@count}</strong> results for the query <strong>'#{@query}'</strong>
+		.table-responsive
+			%table.table
+				%tbody
+					- index = 1
+					- @results.each do |type, val|
+						- val.each do |result|
+							%tr
+								%td #{index}
+								%td
+									= link_to result.name, user_path(result.id)
+								- index = index + 1

@@ -25,6 +25,9 @@ Rails.application.routes.draw do
 	post 'bookings/setdate' => 'bookings#setdate'
 	post 'bookings/update-bookings' => 'bookings#update_bookings'
 
+	get 'search' => 'search#index'
+	post 'search' => 'search#index'
+
 	resources :users
 	resources :projects
 	resources :project_assignments

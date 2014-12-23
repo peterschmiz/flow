@@ -22,7 +22,11 @@
 								Email
 								- if is_order_active?('email')
 									%span.glyphicon.glyphicon.glyphicon-sort
-						%th.hidden-xs Division
+						%th.hidden-xs
+							%a{:href => "#{users_path + get_order_path('division')}"}
+								Division
+								- if is_order_active?('division')
+									%span.glyphicon.glyphicon.glyphicon-sort
 						%th.hidden-xs
 							%a{:href => "#{users_path + get_order_path('pos')}"}
 								Position
