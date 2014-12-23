@@ -13,5 +13,8 @@
 							%tr
 								%td #{index}
 								%td
-									= link_to result.name, user_path(result.id)
+									- if type == 'users'
+										= link_to result.name, user_path(result.id)
+									- elsif type == 'projects'
+										= link_to result.name, project_path(result.id)
 								- index = index + 1
