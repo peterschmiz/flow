@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 			redirect_to search_url
 		elsif query
 			@results = get_search_results(query.downcase)
-			@count = @results['users'].count + @results['projects'].count
+			@count = (@results['users'] ? @results['users'].count : 0) + (@results['projects'] ? @results['projects'].count : 0)
 			@query = query
 		end
 
@@ -18,14 +18,31 @@ class SearchController < ApplicationController
 	private
 
 	def get_search_results(query)
+		queries = query.split(' ')
 		results = {}
-		results['users'] = check_users(query)
-		results['projects'] = check_projects(query)
-		return results
+		users = []
+		projects = []
+		temp_results_users = []
+		temp_results_projects = []
+		queries.each { |subquery|
+			temp_user = check_users(subquery)
+			temp_project = check_projects(subquery)
+			if temp_user.length > 0
+				temp_results_users << temp_user
+			end
+			if temp_project.length > 0
+				temp_results_projects << temp_project
+			end
+		}
+		users.concat(temp_results_users).flatten.compact
+		projects.concat(temp_results_projects).flatten.compact
+		results['users'] = users[0]
+		results['projects'] = projects[0]
+		results
 	end
 
 	def check_users(query)
-		User.where("lower(name) LIKE ? OR lower(email) LIKE ?", "%#{query}%", "%#{query}%").all
+		User.where("lower(name) LIKE ? OR lower(email) LIKE ? OR lower(position) LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%").all
 	end
 
 	def check_projects(query)

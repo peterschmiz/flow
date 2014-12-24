@@ -7,7 +7,7 @@
 					%tr
 						%th ID
 						%th Name
-						%th Members
+						%th.hidden-xs Members
 						- if current_user.admin?
 							%th{:colspan => 2} Actions
 				%tbody
@@ -16,11 +16,17 @@
 							%td #{division.id}
 							%td
 								= link_to division.name, division
-							%td
+							%td.hidden-xs
 								= users_by_division(division.id)
 							- if current_user.admin?
 								%td
-									= link_to 'edit', edit_division_path(division)
+									%span.hidden-xs
+										= link_to 'edit', edit_division_path(division)
+									%span.visible-xs
+										= link_to '', edit_division_path(division), :class => 'glyphicon glyphicon-edit'
 								%td
 									- if users_by_division(division.id) < 1
-										= link_to 'delete', division, method: :delete, data: { confirm: 'You sure?' }
+										%span.hidden-xs
+											= link_to 'delete', division, method: :delete, data: { confirm: 'You sure?' }
+										%span.visible-xs
+											= link_to '', division, method: :delete, data: { confirm: 'You sure?' }, :class => 'glyphicon glyphicon-remove-sign'

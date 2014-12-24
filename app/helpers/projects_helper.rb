@@ -6,7 +6,7 @@ module ProjectsHelper
 
 	def project_owner_name(user_id)
 		if user_id
-			@user = User.where(id: user_id).name
+			@user = User.where(id: user_id).first.name
 		end
 	end
 

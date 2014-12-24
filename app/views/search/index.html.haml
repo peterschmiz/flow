@@ -9,12 +9,18 @@
 				%tbody
 					- index = 1
 					- @results.each do |type, val|
-						- val.each do |result|
-							%tr
-								%td #{index}
-								%td
-									- if type == 'users'
-										= link_to result.name, user_path(result.id)
-									- elsif type == 'projects'
-										= link_to result.name, project_path(result.id)
-								- index = index + 1
+						- if val
+							- val.each do |result|
+								%tr
+									%td #{index}
+									%td
+										- if type == 'users'
+											= link_to result.name, user_path(result.id)
+										- elsif type == 'projects'
+											= link_to result.name, project_path(result.id)
+									- index = index + 1
+									%td.hidden-xs
+										- if type == 'users'
+											User
+										- elsif type == 'projects'
+											Project

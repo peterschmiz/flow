@@ -56,30 +56,32 @@
 							%tr
 								%th Division
 								%th Resource need
-								%th Resource booked
-								%th Unit
-								%th
+								%th.hidden-xs Booked
+								%th.hidden-xs Unit
+								%th.hidden-xs
 						%tbody
 							- @divisions.each do |division|
 								%tr
 									%td #{division.name}
 									%td
 										- need = get_project_resource(@project.id, division.id)
-										= text_field_tag 'division_' + division.id.to_s, need, :placeholder => 'Enter unit...', :class => 'form-control'
-									%td
+										= text_field_tag 'division_' + division.id.to_s, need, :placeholder => 'Enter unit...', :class => 'input-sm form-control'
+									%td.hidden-xs
 										.row
-											.col-md-2.text-center
+											.col-xs-12.col-md-2.text-center
 												- sum = get_sum_booked_unit(@project.id, division.id)
 												= sum
-											.col-md-10
+											.hidden-xs.col-md-10
 												.progress
 													- per = get_percentage(need, sum)
 													.progress-bar{:class => get_percentage_class(per), :role => 'progressbar', 'aria-valuenow' => per, 'aria-valuemin' => 0, 'aria-valuemax' => '100', :style => "width: #{per}%;"}
 														#{per}%
-									%td hour(s)
-									%td
+									%td.hidden-xs hour(s)
+									%td.hidden-xs
 										= submit_tag 'Save unit', :class => 'btn btn-primary'
-
+							%tr.visible-xs
+								%td.visible-xs{:colspan => 2}
+									= submit_tag 'Save unit', :class => 'btn btn-primary'
 - if @users.length > 0
 	.panel.panel-default
 		.panel-heading
@@ -91,25 +93,30 @@
 						%tr
 							%th ID
 							%th User
-							%th Email
+							%th.hidden-xs Email
 							%th Division
-							%th Position
+							%th.hidden-xs Position
 							- if current_user.admin? || current_user.id === project.owner_id
-								%th Action
+								%th
+									%span.hidden-xs Action
+									%span.visible-xs Act
 					%tbody
 						- @users.each do |user|
 							%tr
 								%td #{user.id}
 								%td
 									= link_to user.name, user
-								%td
+								%td.hidden-xs
 									%a{ :href => "mailto:#{user.email}" }
 										#{user.email}
 								%td
 									= division_name(user.division_id)
-								%td #{user.position}
+								%td.hidden-xs #{user.position}
 								- if current_user.admin? || current_user.id === project.owner_id
 									%td
-										= link_to 'delete', project_assignment_path(:user_id => user.id, :project_id => @project.id), method: :delete, data: { confirm: 'You sure?' }
+										%span.hidden-xs
+											= link_to 'delete', project_assignment_path(:user_id => user.id, :project_id => @project.id), method: :delete, data: { confirm: 'You sure?' }
+										%span.visible-xs
+											= link_to '', project_assignment_path(:user_id => user.id, :project_id => @project.id), method: :delete, data: { confirm: 'You sure?' }, :class => 'glyphicon glyphicon-remove-sign'
 
 
