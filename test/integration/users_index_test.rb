@@ -12,9 +12,11 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
 		get users_path
 		assert_template 'users/index'
 		assert_select 'ul.pagination'
-		first_page_of_users = User.paginate(page: 1).order('id ASC')
+		first_page_of_users = User.paginate(page: 1).order('name ASC')
 		first_page_of_users.each do |user|
+			debugger
 			assert_select 'a[href=?]', user_path(user), text: user.name
+			debugger
 			unless user == @admin
 				assert_select 'a[href=?]', user_path(user), text: 'delete',
 				              method: :delete

@@ -1,11 +1,13 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+// Main page wrapper
 .page-wrapper {
 	padding-top: 75px;
 	padding-bottom: 15px;
 }
 
+// Navigation bar & branding
 header .navbar {
 
 	.navbar-text {
@@ -28,6 +30,7 @@ header .navbar {
 
 }
 
+// Booking table alignments
 .row {
 
 	&.booking-table {
@@ -44,6 +47,7 @@ header .navbar {
 
 }
 
+// Table modifications
 table.table th.text-nowrap {
 	white-space: nowrap;
 }

@@ -1,16 +1,26 @@
+-# HTML doctype
 !!! 5
 %html
 	%head
 		%meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1, maximum-scale=1'}
+		-# 'full_title' applocation helper
 		%title #{full_title(yield(:title))}
+		-# HTML5 shim for older Internet Explorers
 		/[if lt IE 9]
 			= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js'
+		-# Main stylesheet (compiled on-the-fly)
 		= stylesheet_link_tag    'application', media: 'all'
+		-# Main javascript file
 		= javascript_include_tag 'application'
 		= csrf_meta_tags
 	%body
+		-# Header partial (with menu & navigation)
 		= render :partial => 'layouts/header'
+		-# Main page wrapper
 		.page-wrapper.container-fluid
+			-# Flash partial (used for displaying different kind of messages)
 			= render :partial => 'partial/flash'
+			-# View render
 			= yield
+			-# Debug box at the bottom, only in development mode
 			= debug(params) if Rails.env.development?
