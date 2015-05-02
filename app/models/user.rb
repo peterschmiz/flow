@@ -1,17 +1,26 @@
 class User < ActiveRecord::Base
+
+	# Database references, dependencies
 	has_many :project_assignments
 	has_many :projects, through: :project_assignments
 	has_many :booking, dependent: :restrict_with_exception
 	has_one :division
 
 	attr_accessor :remember_token
+
+	# Actions to take AFTER validation, but before save
 	before_save { email.downcase! }
-	validates :name, presence: true, length: {maximum: 50}
+
+	# BCrypt password authentication
+	has_secure_password
+
+	# E-mail format regular expression
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
+	validates :name, presence: true, length: {maximum: 50}
 	validates :email, presence: true, length: {maximum: 255},
 	          format:           {with: VALID_EMAIL_REGEX},
 	          uniqueness:       {case_sensitive: false}
-	has_secure_password
 	validates :password, length: { minimum: 6 }, allow_blank: true
 	validates :position, presence: true
 
