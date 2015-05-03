@@ -1,7 +1,15 @@
 require 'test_helper'
 
 class ProjectAssignmentsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	def setup
+		@user = users(:flowtest)
+		@project = projects(:flowproject)
+	end
+
+	test 'should redirect index when not logged in' do
+		get :index
+		assert_redirected_to login_url
+	end
+
 end

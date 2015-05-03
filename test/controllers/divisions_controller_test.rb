@@ -3,7 +3,7 @@ require 'test_helper'
 class DivisionsControllerTest < ActionController::TestCase
 
 	def setup
-		@user    = users(:flowtest)
+		@user = users(:flowtest)
 		@division = divisions(:flowdivision1)
 	end
 

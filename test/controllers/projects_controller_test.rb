@@ -3,7 +3,7 @@ require 'test_helper'
 class ProjectsControllerTest < ActionController::TestCase
 
 	def setup
-		@user    = users(:flowtest)
+		@user = users(:flowtest)
 		@project = projects(:flowproject)
 	end
 

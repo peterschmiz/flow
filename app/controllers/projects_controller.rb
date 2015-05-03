@@ -55,6 +55,15 @@ class ProjectsController < ApplicationController
 		redirect_to projects_path
 	end
 
+	def convert_deadlines(params)
+		deadlines = {}
+		preview_deadline_raw = params[:preview_deadline]
+		live_deadline_raw = params[:live_deadline]
+		deadlines[:preview_deadline] = (preview_deadline_raw[:year] + '-' + preview_deadline_raw[:month] + '-' + preview_deadline_raw[:day]).to_date
+		deadlines[:live_deadline] = (live_deadline_raw[:year] + '-' + live_deadline_raw[:month] + '-' + live_deadline_raw[:day]).to_date
+		deadlines
+	end
+
 	private
 
 	def update_resources(params)
@@ -130,15 +139,6 @@ class ProjectsController < ApplicationController
 		params.require(:project).permit(:name, :description, :active, :url, :owner_id,
 		                                preview_deadline: [:year, :month, :day],
 		                                live_deadline: [:year, :month, :day])
-	end
-
-	def convert_deadlines(params)
-		deadlines = {}
-		preview_deadline_raw = params[:preview_deadline]
-		live_deadline_raw = params[:live_deadline]
-		deadlines[:preview_deadline] = (preview_deadline_raw[:year] + '-' + preview_deadline_raw[:month] + '-' + preview_deadline_raw[:day]).to_date
-		deadlines[:live_deadline] = (live_deadline_raw[:year] + '-' + live_deadline_raw[:month] + '-' + live_deadline_raw[:day]).to_date
-		deadlines
 	end
 
 	# Before filters
