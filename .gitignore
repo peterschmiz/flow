@@ -9,6 +9,3 @@
 
 # RubyMine .idea directory
 /.idea
-
-# Gemfile.lock
-Gemfile.lock
