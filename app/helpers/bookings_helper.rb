@@ -14,7 +14,10 @@ module BookingsHelper
 	end
 
 	def get_sum_booked_unit(project_id, division_id)
-		@bookings = Booking.where(project_id: project_id).where(user_id: User.where(division_id: division_id).where(activated: true).pluck(:id)).sum(:unit)
+		@bookings = Booking.where(project_id: project_id)
+		.where(user_id: User.where(division_id: division_id)
+		.where(activated: true)
+		.pluck(:id)).sum(:unit)
 	end
 
 	def get_booked_unit(project_id, user_id, date)

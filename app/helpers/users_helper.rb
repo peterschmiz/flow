@@ -13,14 +13,14 @@ module UsersHelper
 	end
 
 	def get_order_path(key)
-		return '?sort_by=' + key + '&sort_dir=' + (params[:sort_dir] == 'asc' && params[:sort_by] == key ? 'desc' : 'asc')
+		'?sort_by=' + key + '&sort_dir=' + (params[:sort_dir] == 'asc' && params[:sort_by] == key ? 'desc' : 'asc')
 	end
 
 	def is_order_active?(key)
 		if params[:sort_by] == key
 			return true
 		end
-		return false
+		false
 	end
 
 	def division_name(division_id)
@@ -31,7 +31,7 @@ module UsersHelper
 				@name = division.name
 			end
 		end
-		return @name
+		@name
 	end
 
 end

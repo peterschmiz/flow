@@ -34,7 +34,7 @@ module ProjectsHelper
 			end
 		end
 
-		return per
+		per
 	end
 
 	def get_percentage_class(percentage)
@@ -46,7 +46,7 @@ module ProjectsHelper
 		elsif percentage < 41
 			progress_class = 'progress-bar-danger'
 		end
-		return progress_class
+		progress_class
 	end
 
 end

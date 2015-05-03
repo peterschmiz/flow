@@ -7,7 +7,7 @@ class DivisionsController < ApplicationController
 
 	def show
 		@division = Division.find(params[:id])
-		@users    = User.where(division_id: @division.id)
+		@users = User.where(division_id: @division.id)
 	end
 
 	def new
@@ -44,7 +44,7 @@ class DivisionsController < ApplicationController
 		Division.find(params[:id]).destroy
 		flash[:success] = 'Division deleted!'
 		redirect_to divisions_path
-	rescue ActiveRecord::DeleteRestrictionError => e
+	rescue ActiveRecord::DeleteRestrictionError
 		flash[:danger] = 'Division is associated with a user! Can\'t be deleted!'
 		redirect_to divisions_path
 	end

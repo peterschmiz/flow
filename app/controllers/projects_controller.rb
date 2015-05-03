@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 	helper BookingsHelper
 
 	def index
-		@projects = Project.paginate(page: params[:page]).order('created_at DESC')
+		@projects = Project.paginate(page: params[:page])
 	end
 
 	def show
@@ -18,10 +18,10 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		@project                  = Project.new(project_params)
-		deadlines                 = convert_deadlines(params[:project])
+		@project = Project.new(project_params)
+		deadlines = convert_deadlines(params[:project])
 		@project.preview_deadline = deadlines[:preview_deadline]
-		@project.live_deadline    = deadlines[:live_deadline]
+		@project.live_deadline = deadlines[:live_deadline]
 		if @project.save
 			flash[:info] = 'Project added succesfully!'
 			redirect_to projects_path
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
 		Project.find(params[:id]).destroy
 		flash[:success] = 'Project deleted!'
 		redirect_to projects_path
-	rescue ActiveRecord::DeleteRestrictionError => e
+	rescue ActiveRecord::DeleteRestrictionError
 		flash[:danger] = 'Project is associated with a user! Can\'t be deleted!'
 		redirect_to projects_path
 	end
@@ -58,8 +58,6 @@ class ProjectsController < ApplicationController
 	private
 
 	def update_resources(params)
-		id = -1
-		unit = 0
 
 		params.each do |key, val|
 			raw = key.split('_')
@@ -71,10 +69,10 @@ class ProjectsController < ApplicationController
 						unit = val.to_i
 						add_resource_need(id, unit)
 					else
-						if !flash.key?('warning')
-							flash[:warning] = 'Project unit can be only number!<br>Unit for ' + Division.find(id).name + ' was not updated!'
-						else
+						if flash.key?('warning')
 							flash[:warning] << '<br>Unit for ' + Division.find(id).name + ' was not updated!'
+						else
+							flash[:warning] = 'Project unit can be only number!<br>Unit for ' + Division.find(id).name + ' was not updated!'
 						end
 					end
 				end
@@ -125,22 +123,22 @@ class ProjectsController < ApplicationController
 				users << user
 			end
 		end
-		return users
+		users
 	end
 
 	def project_params
 		params.require(:project).permit(:name, :description, :active, :url, :owner_id,
 		                                preview_deadline: [:year, :month, :day],
-		                                live_deadline:    [:year, :month, :day])
+		                                live_deadline: [:year, :month, :day])
 	end
 
 	def convert_deadlines(params)
-		deadlines                    = {}
-		preview_deadline_raw         = params[:preview_deadline]
-		live_deadline_raw            = params[:live_deadline]
+		deadlines = {}
+		preview_deadline_raw = params[:preview_deadline]
+		live_deadline_raw = params[:live_deadline]
 		deadlines[:preview_deadline] = (preview_deadline_raw[:year] + '-' + preview_deadline_raw[:month] + '-' + preview_deadline_raw[:day]).to_date
-		deadlines[:live_deadline]    = (live_deadline_raw[:year] + '-' + live_deadline_raw[:month] + '-' + live_deadline_raw[:day]).to_date
-		return deadlines
+		deadlines[:live_deadline] = (live_deadline_raw[:year] + '-' + live_deadline_raw[:month] + '-' + live_deadline_raw[:day]).to_date
+		deadlines
 	end
 
 	# Before filters
