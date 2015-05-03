@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 	include SessionsHelper
 
 	# Check logged in user before every action or request
-	before_filter :require_login
+	before_action :require_login
 
 	# Shared before filters
 	protected
