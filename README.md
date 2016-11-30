@@ -10,7 +10,7 @@
 
 1. make sure the role for the app is added (flow)
 2. make sure the 'flow' role has all the needed privileges
-3. run `rake db:create:all`
+3. run `rake db:setup`
 
 ### Ruby related
 
